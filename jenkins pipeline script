@@ -1,0 +1,28 @@
+pipeline{
+    agent any
+    
+    stages{
+        stage("code clone"){
+            steps{
+                https://github.com/ptvprasad/addressbook-cicd-project.git
+        }
+        stage("maven install"){
+            steps{
+                sh 'sudo apt update'
+                sh 'sudo apt install maven -y'
+                
+                }
+            }
+        }
+        stage("package"){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage("copy file to webapps"){
+            steps{
+                sh "cp /target/addressbook.war /"
+            }
+        }
+    }
+}
