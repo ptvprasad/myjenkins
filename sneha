@@ -1,35 +1,32 @@
-pipeline {
+pipeline{
     agent any
-
-    tools {
-        // Install the Maven version configured as "maven" and add it to the path.
-        maven "maven"
-    }
-
-    stages {
-        stage('Build') {
-            steps {
-                // Get some code from a GitHub repository
-                git 'https://github.com/ptvprasad/addressbook-cicd-project.git'
-            }
+    stages{
+        stage("stage1 : git checkout"){
+          steps{
+            echo 'git process started'
+            git url: "https://github.com/akshu20791/addressbook-cicd-project"
+            echo 'git process done'
+          }
         }
-        stage('Compile') {
-            steps {
-                // Compiling the code
+        stage("stage 2 :compile the code"){
+            steps{
                 sh "mvn compile"
             }
         }
-        stage('Test') {
-            steps {
-                // Testing the code
+        stage("stage 3: run the test cases"){
+            steps{
                 sh "mvn test"
             }
         }
-        stage('Package') {
-            steps {
-                // Building the package
+        stage("stage4: package"){
+            steps{
                 sh "mvn package"
             }
-        }
-    }
+        }
+        stage("deploy the project"){
+         steps{
+             sh "sudo cp /var/lib/jenkins/workspace/mycicdpipeline/target/addressbook.war /home/ubuntu/apache-tomcat-9.0.93/webapps"
+         }
+        }
+    }
 }
