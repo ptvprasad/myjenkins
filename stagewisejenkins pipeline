@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Install the Maven version configured as "M3" and add it to the path.
+        // Install the Maven version configured as "maven" and add it to the path.
         maven "maven"
     }
 
@@ -13,30 +13,29 @@ pipeline {
                 git 'https://github.com/ptvprasad/addressbook-cicd-project.git'
             }
         }
-        stage('compile') {
+        stage('Compile') {
             steps {
-                //compiling the code
+                // Compiling the code
                 sh "mvn compile"
             }
         }
-        stage('test') {
-            step { 
-                // testing the code
+        stage('Test') {
+            steps {
+                // Testing the code
                 sh "mvn test"
-            }    
+            }
         }
-        stage('package') {
-            step {
-                // building the package
+        stage('Package') {
+            steps {
+                // Building the package
                 sh "mvn package"
             }
         }
-        
-        stage('deploy') {
+        stage('Deploy') {
             steps {
-                //deploy
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-id', path: '', url: 'http://http://13.201.93.80:9090//manager/html')], contextPath: 'addressbook', war: 'target/*.war'
+                // Deploy
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-id', path: '', url: 'http://13.201.93.80:9090/manager/html')], contextPath: 'addressbook', war: 'target/*.war'
             }
         }
     }
-}    
+}
