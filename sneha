@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "maven" and add it to the path.
+        maven "maven"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/ptvprasad/addressbook-cicd-project.git'
+            }
+        }
+        stage('Compile') {
+            steps {
+                // Compiling the code
+                sh "mvn compile"
+            }
+        }
+        stage('Test') {
+            steps {
+                // Testing the code
+                sh "mvn test"
+            }
+        }
+        stage('Package') {
+            steps {
+                // Building the package
+                sh "mvn package"
+            }
+        }
+    }
+}
