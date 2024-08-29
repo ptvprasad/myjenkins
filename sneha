@@ -30,3 +30,8 @@ pipeline{
         }
     }
 }
+
+
+
+
+sh "sudo cp /opt/l3/workspace/l3asg/target/addressbook.war /home/ubuntu/tomcat9/webapps"
