@@ -33,5 +33,12 @@ pipeline{
 
 
 
+if you are using agent/node, you have to mention the path mentioned in node. for example i gave "/opt/l3" in my agent, also after workspace and before target
+you have to mention your item name... so the path would be like below
 
 sh "sudo cp /opt/l3/workspace/l3asg/target/addressbook.war /home/ubuntu/tomcat9/webapps"
+
+visudo to be done in agent
+if any one changed the name of tomcat, then instead of apache tomcat mention the name u changed to (eg:tomcat9)
+
+replace your github url.
